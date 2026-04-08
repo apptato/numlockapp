@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NumLock — Math Screen Lock for iPhone | Block Apps with Brain Training</title>
+    <meta name="description" content="NumLock is a screen time blocker and brain training app for iPhone. Solve mental math to unlock blocked apps. Build focus, boost productivity, and train your brain daily.">
+    <meta name="keywords" content="screen time blocker, app blocker iPhone, mental math, brain training app, productivity app, block social media, focus app, screen lock">
+    <link rel="canonical" href="https://numlockapp.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="NumLock — Math Screen Lock for iPhone | Block Apps with Brain Training">
+    <meta property="og:description" content="The app blocker that trains your brain. Solve mental math to unlock apps. Build focus and boost productivity on iPhone.">
+    <meta property="og:image" content="https://numlockapp.com/assets/app_icon.png">
+    <meta property="og:url" content="https://numlockapp.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="NumLock">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NumLock — Math Screen Lock for iPhone | Block Apps with Brain Training">
+    <meta name="twitter:description" content="The app blocker that trains your brain. Solve mental math to unlock apps. Build focus and boost productivity on iPhone.">
+    <meta name="twitter:image" content="https://numlockapp.com/assets/app_icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/app_icon.png">
+    <link rel="apple-touch-icon" href="assets/app_icon.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "NumLock: Math Screen Lock",
+        "operatingSystem": "iOS",
+        "applicationCategory": "ProductivityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "4.99",
+            "priceCurrency": "USD",
+            "priceValidUntil": "2027-12-31"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150"
+        },
+        "description": "NumLock is a screen time blocker and brain training app for iPhone. Solve mental math problems to unlock your blocked apps and build mental fitness daily.",
+        "screenshot": "https://numlockapp.com/assets/screenshot-solve.png",
+        "image": "https://numlockapp.com/assets/app_icon.png"
+    }
+    </script>
+
+    <!-- Fonts: preconnect + preload for fast rendering -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #2ECC71;
+            --green-dark: #27AE60;
+            --green-light: #E8F8F0;
+            --dark: #1A1A2E;
+            --dark-light: #2D2D44;
+            --gray: #6B7280;
+            --gray-light: #F3F4F6;
+            --white: #FFFFFF;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: box-shadow 0.3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .nav-brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+
+        .nav-cta {
+            background: var(--green);
+            color: var(--white) !important;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        .nav-mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .nav-mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--dark);
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 140px 24px 80px;
+            background: linear-gradient(165deg, var(--green) 0%, #27AE60 50%, #1E8C4E 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 36px;
+            max-width: 480px;
+            line-height: 1.7;
+        }
+
+        .app-store-badge {
+            display: inline-block;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .app-store-badge:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .app-store-badge img {
+            height: 54px;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-phone {
+            width: 280px;
+            border-radius: 32px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+            transform: perspective(800px) rotateY(-5deg);
+            transition: transform 0.4s;
+        }
+
+        .hero-phone:hover {
+            transform: perspective(800px) rotateY(0deg);
+        }
+
+        /* PROBLEM */
+        .problem {
+            padding: 80px 24px;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .problem-inner {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .problem-stat {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .problem-stat strong {
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .problem-question {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .problem-question em {
+            color: var(--green);
+            font-style: normal;
+        }
+
+        /* HOW IT WORKS */
+        .how-it-works {
+            padding: 100px 24px;
+            background: var(--gray-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px 24px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--green-light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+        }
+
+        .step-number {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .step h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 100px 24px;
+            background: var(--white);
+        }
+
+        .features-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(0,0,0,0.06);
+            background: var(--white);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--green);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--green-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 22px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* SCREENSHOTS */
+        .screenshots {
+            padding: 100px 24px;
+            background: var(--dark);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .screenshots .section-label {
+            color: var(--green);
+        }
+
+        .screenshots .section-title {
+            color: var(--white);
+        }
+
+        .screenshot-scroll {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 60px 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            justify-content: center;
+        }
+
+        @media (max-width: 1400px) {
+            .screenshot-scroll {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (min-width: 1401px) {
+            .screenshot-carousel .screenshot-arrow,
+            .screenshot-carousel .screenshot-dots {
+                display: none;
+            }
+        }
+
+        .screenshot-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .screenshot-item {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+        }
+
+        .screenshot-item img {
+            height: 500px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+        }
+
+        .screenshot-carousel {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .screenshot-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.3s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .screenshot-arrow:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .screenshot-arrow-left { left: 16px; }
+        .screenshot-arrow-right { right: 16px; }
+
+        .screenshot-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 0 0;
+        }
+
+        .screenshot-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .screenshot-dot.active {
+            background: var(--green);
+            transform: scale(1.3);
+        }
+
+        .screenshot-item img {
+            cursor: pointer;
+        }
+
+        .screenshot-item img:hover {
+            transform: scale(1.03);
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            max-height: 90vh;
+            max-width: 90vw;
+            border-radius: 24px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+
+        .lightbox.open img {
+            transform: scale(1);
+        }
+
+        /* PRICING */
+        .pricing {
+            padding: 100px 24px;
+            background: var(--gray-light);
+        }
+
+        .pricing-cards {
+            max-width: 700px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            text-align: center;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--green);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .pricing-plan {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .pricing-detail {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 8px 0 28px;
+        }
+
+        .pricing-cta {
+            display: inline-block;
+            background: var(--green);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 12px 32px;
+            border-radius: 100px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .pricing-cta:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 100px 24px;
+            background: var(--white);
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 24px 0;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--gray);
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            padding-bottom: 24px;
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 24px;
+            background: linear-gradient(165deg, var(--green) 0%, #1E8C4E 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 36px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--white);
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 16px 40px;
+            border-radius: 100px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 40px 24px;
+            background: var(--dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 48px;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-text h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero-phone {
+                width: 240px;
+                transform: none;
+            }
+
+            .hero-phone:hover {
+                transform: scale(1.02);
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--white);
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(0,0,0,0.06);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1.05rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+            }
+
+            .pricing-card.featured {
+                order: -1;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            .problem-question {
+                font-size: 1.4rem;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+
+            .screenshot-item img {
+                height: 400px;
+            }
+        }
+
+        /* ANIMATIONS */
+        @media (prefers-reduced-motion: no-preference) {
+            .fade-in {
+                opacity: 0;
+                transform: translateY(24px);
+                transition: opacity 0.6s ease, transform 0.6s ease;
+            }
+
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">
+                <img src="assets/app_icon.png" alt="NumLock app icon — math screen lock for iPhone" width="32" height="32">
+                NumLock
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#download" class="nav-cta">Download</a></li>
+            </ul>
+            <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>Turn your screen time into brain time</h1>
+                <p>The screen time blocker that makes you smarter. Solve mental math to unlock your apps and train your brain every time you pick up your phone.</p>
+                <a href="#download" class="app-store-badge" aria-label="Download on the App Store">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="54">
+                </a>
+            </div>
+            <div class="hero-visual">
+                <img src="assets/screenshot-solve.png" alt="NumLock app blocker for iPhone showing a mental math problem to solve before unlocking apps" class="hero-phone" width="280" loading="eager">
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="problem-inner fade-in">
+            <p class="problem-stat">The average person picks up their phone <strong>over 150 times a day.</strong></p>
+            <p class="problem-question">What if every app unlock became <em>brain training</em> instead of mindless scrolling?</p>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <p class="section-label">How It Works</p>
+            <h2 class="section-title">Three steps to a sharper mind</h2>
+        </div>
+        <div class="steps">
+            <div class="step fade-in">
+                <div class="step-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                </div>
+                <p class="step-number">Step 1</p>
+                <h3>Choose your apps</h3>
+                <p>Pick which apps to block on your iPhone. Block social media, games, or anything that eats your time.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2H8V6a4 4 0 014-4z"/><rect x="5" y="8" width="14" height="12" rx="2"/><path d="M10 15h4"/></svg>
+                </div>
+                <p class="step-number">Step 2</p>
+                <h3>Solve to unlock</h3>
+                <p>Mental math challenges stand between you and your distractions. A quick brain training session before every unlock.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <p class="step-number">Step 3</p>
+                <h3>Enjoy your grace period</h3>
+                <p>Apps unlock for the time you choose — 15 min, 30 min, 1 hour, or until midnight.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <p class="section-label">Features</p>
+            <h2 class="section-title">Everything you need, nothing you don't</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3>Adaptive Difficulty</h3>
+                <p>25 levels that adjust to your skill. Start simple, level up to multi-step equations.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>
+                </div>
+                <h3>Streak Tracking</h3>
+                <p>Build a daily habit. Your streak motivates you to never miss a day.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Flexible Grace Periods</h3>
+                <p>Choose 15 min, 30 min, 1 hour, or until midnight. You control your limits.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+                </div>
+                <h3>Stats Dashboard</h3>
+                <p>Track accuracy, solve time, and progress. Watch yourself get sharper over time.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <h3>Private by Design</h3>
+                <p>No accounts, no data collection. Everything stays on your device.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>Designed for Adults</h3>
+                <p>Not a parental control app. It's a productivity app you choose for yourself.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section class="screenshots" id="screenshots">
+        <div class="section-header">
+            <p class="section-label">See It In Action</p>
+            <h2 class="section-title">Built for simplicity</h2>
+        </div>
+        <div class="screenshot-carousel">
+            <button class="screenshot-arrow screenshot-arrow-left" aria-label="Previous screenshot">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="screenshot-scroll" id="screenshotScroll">
+                <div class="screenshot-item">
+                    <img src="assets/screenshot-solve.png" alt="NumLock mental math challenge screen — solve addition problems to unlock blocked apps on iPhone" height="500" loading="lazy">
+                </div>
+                <div class="screenshot-item">
+                    <img src="assets/screenshot-dashboard.png" alt="NumLock productivity stats dashboard showing streaks, accuracy, and solve times" height="500" loading="lazy">
+                </div>
+                <div class="screenshot-item">
+                    <img src="assets/screenshot-settings.png" alt="NumLock settings — configure app blocking, grace periods, and difficulty for your screen time blocker" height="500" loading="lazy">
+                </div>
+                <div class="screenshot-item">
+                    <img src="assets/screenshot-lock.png" alt="NumLock app blocker lock screen — solve math to unlock this app on iPhone" height="500" loading="lazy">
+                </div>
+                <div class="screenshot-item">
+                    <img src="assets/screenshot-levelup.png" alt="NumLock brain training level up screen — unlock new difficulty tiers as your mental math improves" height="500" loading="lazy">
+                </div>
+            </div>
+            <button class="screenshot-arrow screenshot-arrow-right" aria-label="Next screenshot">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="screenshot-dots" id="screenshotDots"></div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <p class="section-label">Pricing</p>
+            <h2 class="section-title">Invest in a sharper mind</h2>
+        </div>
+        <div class="pricing-cards">
+            <div class="pricing-card fade-in">
+                <p class="pricing-plan">Monthly</p>
+                <p class="pricing-price">$4.99<span>/mo</span></p>
+                <p class="pricing-detail">Cancel anytime</p>
+                <a href="#download" class="pricing-cta">Get NumLock</a>
+            </div>
+            <div class="pricing-card featured fade-in">
+                <span class="pricing-badge">Best Value</span>
+                <p class="pricing-plan">Annual</p>
+                <p class="pricing-price">$39.99<span>/yr</span></p>
+                <p class="pricing-detail">7-day free trial &middot; Save 33%</p>
+                <a href="#download" class="pricing-cta">Try Free for 7 Days</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <p class="section-label">FAQ</p>
+            <h2 class="section-title">Questions? Answers.</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">Is NumLock a parental control app?</button>
+                <div class="faq-answer">
+                    <p>No. NumLock is a self-imposed productivity tool designed for adults. You set it up for yourself, you control the settings, and you choose which apps to block.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can I bypass it?</button>
+                <div class="faq-answer">
+                    <p>There's an emergency unlock option for when you truly need immediate access, but using it resets your streak. It's designed to keep you honest.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Does it work offline?</button>
+                <div class="faq-answer">
+                    <p>Yes, fully offline. NumLock doesn't require an internet connection and no data ever leaves your device.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What happens if I cancel my subscription?</button>
+                <div class="faq-answer">
+                    <p>Your data stays on your device. App blocking stops until you resubscribe, but your stats and progress are always preserved.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Which apps can I block?</button>
+                <div class="faq-answer">
+                    <p>Any app on your iPhone. NumLock uses Apple's Screen Time API, so you can block social media, games, browsers, or any other app you choose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="download">
+        <div class="cta-inner fade-in">
+            <h2>Start training your brain today</h2>
+            <p>Every unlock is a chance to get sharper. Try the brain training app blocker free for 7 days on iPhone.</p>
+            <a href="#" class="cta-btn">Download on the App Store</a>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="Screenshot preview" id="lightboxImg">
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="mailto:info@apptato.com">Contact</a>
+            </div>
+            <p>&copy; 2026 Peter Li. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        document.querySelectorAll('.faq-question').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = this.parentElement;
+                var wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        // Screenshot carousel
+        var scrollContainer = document.getElementById('screenshotScroll');
+        var dotsContainer = document.getElementById('screenshotDots');
+        var items = scrollContainer.querySelectorAll('.screenshot-item');
+
+        // Create dots
+        items.forEach(function(_, i) {
+            var dot = document.createElement('button');
+            dot.className = 'screenshot-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to screenshot ' + (i + 1));
+            dot.addEventListener('click', function() {
+                items[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        var dots = dotsContainer.querySelectorAll('.screenshot-dot');
+
+        var arrowLeft = document.querySelector('.screenshot-arrow-left');
+        var arrowRight = document.querySelector('.screenshot-arrow-right');
+
+        function updateCarouselState() {
+            var scrollLeft = scrollContainer.scrollLeft;
+            var containerWidth = scrollContainer.offsetWidth;
+            var maxScroll = scrollContainer.scrollWidth - containerWidth;
+
+            // Update dots
+            var activeIndex = 0;
+            var minDist = Infinity;
+            items.forEach(function(item, i) {
+                var center = item.offsetLeft + item.offsetWidth / 2 - scrollLeft;
+                var dist = Math.abs(center - containerWidth / 2);
+                if (dist < minDist) { minDist = dist; activeIndex = i; }
+            });
+            dots.forEach(function(d, i) { d.classList.toggle('active', i === activeIndex); });
+
+            // Update arrows
+            arrowLeft.style.opacity = scrollLeft <= 5 ? '0' : '1';
+            arrowLeft.style.pointerEvents = scrollLeft <= 5 ? 'none' : 'auto';
+            arrowRight.style.opacity = scrollLeft >= maxScroll - 5 ? '0' : '1';
+            arrowRight.style.pointerEvents = scrollLeft >= maxScroll - 5 ? 'none' : 'auto';
+        }
+
+        scrollContainer.addEventListener('scroll', updateCarouselState);
+        updateCarouselState();
+        window.addEventListener('load', updateCarouselState);
+        window.addEventListener('resize', updateCarouselState);
+
+        // Arrow buttons
+        arrowLeft.addEventListener('click', function() {
+            scrollContainer.scrollBy({ left: -280, behavior: 'smooth' });
+        });
+        arrowRight.addEventListener('click', function() {
+            scrollContainer.scrollBy({ left: 280, behavior: 'smooth' });
+        });
+
+        // Lightbox
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightboxImg');
+
+        document.querySelectorAll('.screenshot-item img').forEach(function(img) {
+            img.addEventListener('click', function() {
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                lightbox.classList.add('open');
+            });
+        });
+
+        lightbox.addEventListener('click', function() {
+            lightbox.classList.remove('open');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') lightbox.classList.remove('open');
+        });
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+        }
+    </script>
+</body>
+</html>
